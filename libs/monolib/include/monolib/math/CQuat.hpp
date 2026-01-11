@@ -70,8 +70,8 @@ namespace ml {
             result.y = angle;
             float dVar21 = w * twoZ;
                     
-            if (angle < halfpi) {
-                if (angle > -halfpi) {
+            if (angle < math::halfpi) {
+                if (angle > -math::halfpi) {
                     twoY *= y;
                     result.x = DEG2RAD(math::atan2((y * twoZ) + (w * twoX), 1.0f - (dVar16 + twoY)));
                     result.z = DEG2RAD(math::atan2((dVar22 + dVar21),1.0f - (twoY + dVar19)));

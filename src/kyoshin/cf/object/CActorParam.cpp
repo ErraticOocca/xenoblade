@@ -10,7 +10,7 @@ namespace cf {
         unk3358 = 0;
         unk335A = 2;
         
-        float idk = 2.0f * (ml::pi/3.0f);
+        float idk = 2.0f * (ml::math::pi/3.0f);
 
         unk3364 = 0;
         unk3368 = 0;
