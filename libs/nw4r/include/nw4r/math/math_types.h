@@ -484,6 +484,8 @@ MTX33* MTX33Identity(MTX33* pMtx);
 MTX33* MTX34ToMTX33(MTX33* pOut, const MTX34* pIn);
 u32 MTX34InvTranspose(MTX33* pOut, const MTX34* pIn);
 MTX34* MTX34Zero(MTX34* pMtx);
+MTX34* MTX34Add(MTX34* pOut, const MTX34* pIn1, const MTX34* pIn2);
+MTX34* MTX34Mult(MTX34* pOut, const MTX34* pIn, f32 fScale);
 MTX34* MTX34Scale(MTX34* pOut, const MTX34* pIn, const VEC3* pScale);
 MTX34* MTX34Trans(MTX34* pOut, const MTX34* pIn, const VEC3* pTrans);
 MTX34* MTX34RotAxisFIdx(MTX34* pMtx, const VEC3* pAxis, f32 fidx);

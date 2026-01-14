@@ -180,6 +180,82 @@ MTX34* MTX34Zero(register MTX34* pMtx) {
     return pMtx;
 }
 
+MTX34* MTX34Add(register MTX34* pOut, register const MTX34* pIn1, 
+                register const MTX34* pIn2) {
+    // FPRs f0, f1, f2
+    register f32 psqTemp0, psqTemp1, psqTemp2;
+    // Element-wise addition, with the x+0x4 values coming along for free.
+    // Group by submatrix, the re-ordered compiler output will match.
+    ASM (
+        psq_l psqTemp0, MTX34._00(pIn1), 0, 0
+        psq_l psqTemp1, MTX34._00(pIn2), 0, 0
+        ps_add psqTemp2, psqTemp0, psqTemp1
+        psq_st psqTemp2, MTX34._00(pOut), 0, 0
+
+        psq_l psqTemp0, MTX34._02(pIn1), 0, 0
+        psq_l psqTemp1, MTX34._02(pIn2), 0, 0
+        ps_add psqTemp2, psqTemp0, psqTemp1
+        psq_st psqTemp2, MTX34._02(pOut), 0, 0
+
+        psq_l psqTemp0, MTX34._10(pIn1), 0, 0
+        psq_l psqTemp1, MTX34._10(pIn2), 0, 0
+        ps_add psqTemp2, psqTemp0, psqTemp1
+        psq_st psqTemp2, MTX34._10(pOut), 0, 0
+
+        psq_l psqTemp0, MTX34._12(pIn1), 0, 0
+        psq_l psqTemp1, MTX34._12(pIn2), 0, 0
+        ps_add psqTemp2, psqTemp0, psqTemp1
+        psq_st psqTemp2, MTX34._12(pOut), 0, 0
+        
+        psq_l psqTemp0, MTX34._20(pIn1), 0, 0
+        psq_l psqTemp1, MTX34._20(pIn2), 0, 0
+        ps_add psqTemp2, psqTemp0, psqTemp1
+        psq_st psqTemp2, MTX34._20(pOut), 0, 0
+        
+        psq_l psqTemp0, MTX34._22(pIn1), 0, 0
+        psq_l psqTemp1, MTX34._22(pIn2), 0, 0
+        ps_add psqTemp2, psqTemp0, psqTemp1
+        psq_st psqTemp2, MTX34._22(pOut), 0, 0
+    )
+
+    return pOut;
+}
+
+MTX34* MTX34Mult(register MTX34* pOut, register const MTX34* pIn, 
+                 register f32 fScale) {
+    // FPRs f0, f2; f1 is implicitly fScale
+    register f32 psqTemp0, psqTemp2;
+    // Element-wise multiplication by a scalar, with the x+0x4 values coming along for free.
+    // Group by submatrix, the re-ordered compiler output will match.
+    ASM (
+        psq_l psqTemp0, MTX34._00(pIn), 0, 0
+        ps_muls0 psqTemp2, psqTemp0, fScale
+        psq_st psqTemp2, MTX34._00(pOut), 0, 0
+
+        psq_l psqTemp0, MTX34._02(pIn), 0, 0
+        ps_muls0 psqTemp2, psqTemp0, fScale
+        psq_st psqTemp2, MTX34._02(pOut), 0, 0
+
+        psq_l psqTemp0, MTX34._10(pIn), 0, 0
+        ps_muls0 psqTemp2, psqTemp0, fScale
+        psq_st psqTemp2, MTX34._10(pOut), 0, 0
+
+        psq_l psqTemp0, MTX34._12(pIn), 0, 0
+        ps_muls0 psqTemp2, psqTemp0, fScale
+        psq_st psqTemp2, MTX34._12(pOut), 0, 0
+
+        psq_l psqTemp0, MTX34._20(pIn), 0, 0
+        ps_muls0 psqTemp2, psqTemp0, fScale
+        psq_st psqTemp2, MTX34._20(pOut), 0, 0
+
+        psq_l psqTemp0, MTX34._22(pIn), 0, 0
+        ps_muls0 psqTemp2, psqTemp0, fScale
+        psq_st psqTemp2, MTX34._22(pOut), 0, 0
+    )
+
+    return pOut;
+}
+
 MTX34* MTX34Scale(register MTX34* pOut, register const MTX34* pIn,
                   register const VEC3* pScale) {
     register f32 xy, z;

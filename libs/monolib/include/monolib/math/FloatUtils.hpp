@@ -10,5 +10,5 @@
 namespace ml{
     namespace math{
         bool isErrFloat(float f);
-    }
+    } //namespace math
 } //namespace ml
