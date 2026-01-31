@@ -33,5 +33,14 @@ namespace ml {
         inline void setIdentity(){
             PSMTXIdentity(mtx);
         }
+
+        inline float calcTrace(){
+            return m[0][0] + m[1][1] + m[2][2];
+        }
+
+        void func_80436260(const float fIn1, const float fIn2);
+        // void func_804366C0();
+        // void func_8043692C();
+        // void func_80436B98();
     };
 } //namespace ml

@@ -33,6 +33,10 @@ namespace ml{
         return nw4r::math::Atan2FIdx(y, x);
     }
 
+    inline float sqrtf(float x){
+        return nw4r::math::FSqrt(x);
+    }
+
     inline float clamp(float x, float min, float max) {
         if (x >= max) x = max;
         else if (x <= min) x = min;

@@ -76,9 +76,10 @@ inline f32 FModf(f32 x, f32* pY) {
     return std::modff(x, pY);
 }
 
-inline f32 FSqrt(f32 x) {
-    return x <= 0.0f ? 0.0f : x * FrSqrt(x);
-}
+// TODO: moved this math_triangular.h so that the warning text is correct..? needs review
+// inline f32 FSqrt(f32 x) {
+//     return x <= 0.0f ? 0.0f : x * FrSqrt(x);
+// }
 
 inline f32 FLog(f32 x) {
     if (x > 0.0f) {

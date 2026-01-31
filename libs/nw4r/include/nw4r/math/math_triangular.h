@@ -151,6 +151,31 @@ inline f32 Atan2Rad(f32 y, f32 x) {
     return NW4R_MATH_FIDX_TO_RAD(Atan2FIdx(y, x));
 }
 
+/******************************************************************************
+ *
+ * Root functions
+ *
+ ******************************************************************************/
+
+inline f32 FSqrt(f32 x) {
+    // TODO: does this bounds enforcement? what about the out-of-bounds warning?
+    // There are also multiple jumps to the same line - is there a fixed number
+    // of iterations for refinement?
+    bool inRange = x >= 0.0f;
+
+    // TODO function name doesn't match this one, need another inline func?
+    // Also, the start is "triangular.h", but Fsqrt was in arithmetic.h?
+    // This resulted in a mismatch in nw4r/g3d/res/g3d_resanmchr, GetRotateDeg()
+    // Are these actually different functions? Check 80669AE4 and 80669AE0
+    if(!inRange){
+        NW4R_WARNING("FSqrt: Input is out of the domain.");
+    }
+
+    if (x < 0.0f) return 0.0f;
+    
+    return x * FrSqrt(x);
+}
+
 } // namespace math
 } // namespace nw4r
 
